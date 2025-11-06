@@ -11,14 +11,14 @@ const Index = () => {
   return (
     <>
       <Helmet>
-        <title>Cantiere Verde - Residenze Moderne Milano | Vivi il Futuro, Oggi</title>
+        <title>Borgo San Nicola - Residenze Moderne con Giardini | Nuovi Appartamenti</title>
         <meta 
           name="description" 
-          content="Scopri le nuove residenze moderne a Milano. Appartamenti di lusso con classe energetica A4, design contemporaneo e personalizzazione completa. Prenota la tua visita." 
+          content="Borgo San Nicola: complesso residenziale moderno con giardini condominiali, balconi panoramici e classe energetica A4. Scopri il tuo nuovo appartamento." 
         />
         <meta 
           name="keywords" 
-          content="appartamenti nuovi milano, residenze moderne, classe energetica a4, investimento immobiliare, cantiere residenziale" 
+          content="borgo san nicola, appartamenti nuovi, residenze moderne, giardini condominiali, classe energetica a4, investimento immobiliare" 
         />
       </Helmet>
 

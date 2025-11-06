@@ -4,9 +4,9 @@ const Footer = () => {
       <div className="container mx-auto px-4">
         <div className="grid md:grid-cols-3 gap-8 mb-8">
           <div>
-            <h3 className="text-xl font-semibold mb-4">Cantiere Verde</h3>
+            <h3 className="text-xl font-semibold mb-4">Borgo San Nicola</h3>
             <p className="text-primary-foreground/80">
-              Il tuo nuovo modo di abitare. Design, comfort e sostenibilità in perfetta armonia.
+              Un nuovo modo di vivere la città. Modernità, verde e qualità della vita in perfetto equilibrio.
             </p>
           </div>
           
@@ -37,13 +37,13 @@ const Footer = () => {
               <li>Via delle Residenze, 1</li>
               <li>20100 Milano (MI)</li>
               <li>Tel: +39 02 1234 5678</li>
-              <li>info@cantiereverde.it</li>
+              <li>info@borgosannicola.it</li>
             </ul>
           </div>
         </div>
         
         <div className="border-t border-primary-foreground/20 pt-8 text-center text-primary-foreground/60 text-sm">
-          <p>&copy; {new Date().getFullYear()} Cantiere Verde. Tutti i diritti riservati.</p>
+          <p>&copy; {new Date().getFullYear()} Borgo San Nicola. Tutti i diritti riservati.</p>
         </div>
       </div>
     </footer>

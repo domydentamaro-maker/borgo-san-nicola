@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ChevronDown } from "lucide-react";
-import heroImage from "@/assets/hero-building.jpg";
+import heroImage from "@/assets/borgo-exterior-street.jpg";
 
 const Hero = () => {
   const scrollToContact = () => {
@@ -26,11 +26,11 @@ const Hero = () => {
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 text-center text-white">
         <h1 className="text-5xl md:text-7xl font-bold mb-6 animate-fade-in">
-          Vivi il Futuro, Oggi
+          Borgo San Nicola
         </h1>
         <p className="text-xl md:text-2xl mb-8 text-white/90 max-w-3xl mx-auto">
-          Un progetto residenziale che ridefinisce il concetto di abitare moderno. 
-          Design contemporaneo, comfort superiore e sostenibilità in perfetto equilibrio.
+          Dove tradizione e innovazione si incontrano. Un nuovo modo di vivere la città, 
+          con appartamenti moderni, giardini condominiali e un design che rispetta l'ambiente.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
           <Button 

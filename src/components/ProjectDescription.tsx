@@ -10,9 +10,9 @@ const ProjectDescription = () => {
           
           <div className="space-y-8 text-lg text-muted-foreground">
             <p className="leading-relaxed">
-              Un complesso residenziale di nuova concezione che unisce architettura contemporanea 
-              e attenzione all'ambiente. Le abitazioni sono progettate per offrire il massimo 
-              comfort abitativo attraverso soluzioni tecnologiche all'avanguardia e materiali di prima qualità.
+              Borgo San Nicola è un complesso residenziale innovativo che integra architettura moderna 
+              con ampie aree verdi condominiali. Gli appartamenti sono caratterizzati da balconi 
+              panoramici, giardini pensili e un design che valorizza la luce naturale e la sostenibilità.
             </p>
             
             <div className="grid md:grid-cols-2 gap-8 pt-8">

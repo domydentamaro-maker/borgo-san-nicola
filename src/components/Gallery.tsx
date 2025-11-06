@@ -1,17 +1,21 @@
 import { useState } from "react";
-import interiorRender from "@/assets/interior-render.jpg";
-import floorPlan from "@/assets/floor-plan.jpg";
-import exteriorRender from "@/assets/exterior-render.jpg";
-import heroBuilding from "@/assets/hero-building.jpg";
+import lobbyRender from "@/assets/borgo-lobby.jpg";
+import aerialView from "@/assets/borgo-aerial-top.jpg";
+import frontView from "@/assets/borgo-front-parking.jpg";
+import courtyardView from "@/assets/borgo-courtyard.jpg";
+import facadeView from "@/assets/borgo-facade-balconies.jpg";
+import streetView from "@/assets/borgo-street-view.jpg";
 
 const Gallery = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   const images = [
-    { src: interiorRender, alt: "Render interno appartamento" },
-    { src: floorPlan, alt: "Planimetria appartamento tipo" },
-    { src: exteriorRender, alt: "Render esterno edificio" },
-    { src: heroBuilding, alt: "Vista notturna del complesso" },
+    { src: lobbyRender, alt: "Ingresso e lobby Borgo San Nicola" },
+    { src: aerialView, alt: "Vista aerea del complesso" },
+    { src: frontView, alt: "Vista frontale con parcheggio" },
+    { src: courtyardView, alt: "Giardino condominiale interno" },
+    { src: facadeView, alt: "Facciata con balconi e vegetazione" },
+    { src: streetView, alt: "Vista dalla strada principale" },
   ];
 
   return (
