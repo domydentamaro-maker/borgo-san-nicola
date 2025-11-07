@@ -21,7 +21,7 @@ const ProjectDescription = () => {
                 <ul className="space-y-3">
                   <li className="flex items-start">
                     <span className="text-accent mr-3">•</span>
-                    <span>Metrature da 70 a 150 mq</span>
+                    <span>Varie metrature</span>
                   </li>
                   <li className="flex items-start">
                     <span className="text-accent mr-3">•</span>
