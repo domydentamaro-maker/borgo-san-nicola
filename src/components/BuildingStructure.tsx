@@ -1,8 +1,14 @@
 import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card } from "@/components/ui/card";
-import { Home, Square, Bed, Bath, Maximize2 } from "lucide-react";
+import { Home, Square, Bed, Bath, Maximize2, Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 // Planimetrie Scala A
 import scalaAApt1Quotata from "@/assets/planimetrie/scala-a-apt1-quotata.jpg";
@@ -33,7 +39,8 @@ interface Scale {
 }
 
 const BuildingStructure = () => {
-  const [selectedApartment, setSelectedApartment] = useState<string | null>(null);
+  const [selectedApartment, setSelectedApartment] = useState<Apartment | null>(null);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const scales: Scale[] = [
     {
@@ -315,6 +322,11 @@ const BuildingStructure = () => {
     contactSection?.scrollIntoView({ behavior: "smooth" });
   };
 
+  const openPlanimetry = (apt: Apartment) => {
+    setSelectedApartment(apt);
+    setIsDialogOpen(true);
+  };
+
   return (
     <section className="py-24 bg-background">
       <div className="container mx-auto px-4">
@@ -350,18 +362,15 @@ const BuildingStructure = () => {
                 <p className="text-muted-foreground">{scala.description}</p>
               </div>
 
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {scala.apartments.map((apt) => (
                   <Card
                     key={apt.id}
-                    className={`p-6 transition-all duration-300 cursor-pointer hover:shadow-elegant border-2 ${
-                      selectedApartment === apt.id 
-                        ? 'border-accent' 
-                        : apt.available 
-                          ? 'border-border hover:border-accent/50' 
-                          : 'border-border opacity-60'
+                    className={`p-6 transition-all duration-300 border-2 ${
+                      apt.available 
+                        ? 'border-border hover:border-accent/50 hover:shadow-elegant' 
+                        : 'border-border opacity-60'
                     }`}
-                    onClick={() => setSelectedApartment(apt.id)}
                   >
                     <div className="flex items-center justify-between mb-4">
                       <div className="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center">
@@ -396,82 +405,83 @@ const BuildingStructure = () => {
                       </div>
                     </div>
 
-                    {apt.available && (
-                      <Button 
-                        variant="outline" 
-                        size="sm" 
-                        className="w-full"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          scrollToContact();
-                        }}
-                      >
-                        Richiedi Info
-                      </Button>
-                    )}
+                    <div className="space-y-2">
+                      {apt.planimetryQuotata && apt.planimetryArredata && (
+                        <Button 
+                          variant="hero" 
+                          size="sm" 
+                          className="w-full"
+                          onClick={() => openPlanimetry(apt)}
+                        >
+                          <Eye className="w-4 h-4 mr-2" />
+                          Visualizza Planimetria
+                        </Button>
+                      )}
+                      {apt.available && (
+                        <Button 
+                          variant="outline" 
+                          size="sm" 
+                          className="w-full"
+                          onClick={() => scrollToContact()}
+                        >
+                          Richiedi Info
+                        </Button>
+                      )}
+                    </div>
                   </Card>
                 ))}
               </div>
-
-              {selectedApartment && (() => {
-                const apt = scala.apartments.find(a => a.id === selectedApartment);
-                return apt && (
-                  <div className="mt-8 bg-muted/50 rounded-lg p-8 border border-border">
-                    <div className="flex items-center justify-between mb-6">
-                      <h4 className="text-xl font-semibold">
-                        Planimetrie {apt.name}
-                      </h4>
-                      <Button 
-                        variant="ghost" 
-                        size="sm"
-                        onClick={() => setSelectedApartment(null)}
-                      >
-                        Chiudi
-                      </Button>
-                    </div>
-                    
-                    {apt.planimetryQuotata && apt.planimetryArredata ? (
-                      <div className="grid md:grid-cols-2 gap-6">
-                        <div className="space-y-3">
-                          <h5 className="font-semibold text-center">Planimetria Quotata</h5>
-                          <div className="bg-white dark:bg-gray-800 rounded-lg p-4 border border-border">
-                            <img 
-                              src={apt.planimetryQuotata} 
-                              alt={`Planimetria quotata ${apt.name}`}
-                              className="w-full h-auto rounded"
-                            />
-                          </div>
-                        </div>
-                        <div className="space-y-3">
-                          <h5 className="font-semibold text-center">Planimetria Arredata</h5>
-                          <div className="bg-white dark:bg-gray-800 rounded-lg p-4 border border-border">
-                            <img 
-                              src={apt.planimetryArredata} 
-                              alt={`Planimetria arredata ${apt.name}`}
-                              className="w-full h-auto rounded"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    ) : (
-                      <div className="bg-white dark:bg-gray-800 rounded-lg p-8 aspect-video flex items-center justify-center border-2 border-dashed border-border">
-                        <div className="text-center space-y-4">
-                          <Square className="w-16 h-16 text-muted-foreground mx-auto" />
-                          <p className="text-muted-foreground">
-                            Planimetria disponibile su richiesta
-                          </p>
-                          <Button variant="hero" onClick={scrollToContact}>
-                            Richiedi Planimetria Dettagliata
-                          </Button>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                );
-              })()}
             </TabsContent>
           ))}
         </Tabs>
+
+        {/* Dialog per Planimetrie */}
+        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+          <DialogContent className="max-w-6xl max-h-[90vh] overflow-y-auto">
+            <DialogHeader>
+              <DialogTitle className="text-2xl">
+                Planimetrie {selectedApartment?.name}
+              </DialogTitle>
+            </DialogHeader>
+            
+            {selectedApartment?.planimetryQuotata && selectedApartment?.planimetryArredata ? (
+              <div className="grid md:grid-cols-2 gap-6 mt-4">
+                <div className="space-y-3">
+                  <h5 className="font-semibold text-center text-lg">Planimetria Quotata</h5>
+                  <div className="bg-white dark:bg-gray-800 rounded-lg p-4 border border-border">
+                    <img 
+                      src={selectedApartment.planimetryQuotata} 
+                      alt={`Planimetria quotata ${selectedApartment.name}`}
+                      className="w-full h-auto rounded"
+                    />
+                  </div>
+                </div>
+                <div className="space-y-3">
+                  <h5 className="font-semibold text-center text-lg">Planimetria Arredata</h5>
+                  <div className="bg-white dark:bg-gray-800 rounded-lg p-4 border border-border">
+                    <img 
+                      src={selectedApartment.planimetryArredata} 
+                      alt={`Planimetria arredata ${selectedApartment.name}`}
+                      className="w-full h-auto rounded"
+                    />
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div className="bg-white dark:bg-gray-800 rounded-lg p-8 aspect-video flex items-center justify-center border-2 border-dashed border-border">
+                <div className="text-center space-y-4">
+                  <Square className="w-16 h-16 text-muted-foreground mx-auto" />
+                  <p className="text-muted-foreground">
+                    Planimetria disponibile su richiesta
+                  </p>
+                  <Button variant="hero" onClick={scrollToContact}>
+                    Richiedi Planimetria Dettagliata
+                  </Button>
+                </div>
+              </div>
+            )}
+          </DialogContent>
+        </Dialog>
       </div>
     </section>
   );
