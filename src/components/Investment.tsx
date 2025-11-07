@@ -23,7 +23,7 @@ const Investment = () => {
     <section className="py-24 bg-muted">
       <div className="container mx-auto px-4">
         <h2 className="text-4xl md:text-5xl font-bold mb-6 text-center">
-          Perché Investire Qui
+          Perché Investire Qui?
         </h2>
         <div className="h-1 w-20 bg-accent mx-auto mb-16" />
         
