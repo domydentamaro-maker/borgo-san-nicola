@@ -4,6 +4,14 @@ import { Card } from "@/components/ui/card";
 import { Home, Square, Bed, Bath, Maximize2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
+// Planimetrie Scala A
+import scalaAApt1Quotata from "@/assets/planimetrie/scala-a-apt1-quotata.jpg";
+import scalaAApt1Arredata from "@/assets/planimetrie/scala-a-apt1-arredata.jpg";
+import scalaAApt2Quotata from "@/assets/planimetrie/scala-a-apt2-quotata.jpg";
+import scalaAApt2Arredata from "@/assets/planimetrie/scala-a-apt2-arredata.jpg";
+import scalaAApt3Quotata from "@/assets/planimetrie/scala-a-apt3-quotata.jpg";
+import scalaAApt3Arredata from "@/assets/planimetrie/scala-a-apt3-arredata.jpg";
+
 interface Apartment {
   id: string;
   name: string;
@@ -13,7 +21,8 @@ interface Apartment {
   size: string;
   price?: string;
   available: boolean;
-  planimetryUrl?: string;
+  planimetryQuotata?: string;
+  planimetryArredata?: string;
 }
 
 interface Scale {
@@ -30,43 +39,143 @@ const BuildingStructure = () => {
     {
       id: "scala-a",
       name: "Scala A",
-      description: "Ingresso principale con vista su giardino",
+      description: "Ingresso principale con vista su giardino - 3 appartamenti per piano",
       apartments: [
+        // Piano Primo - 3 appartamenti
         {
-          id: "a1",
-          name: "A1 - Piano Terra",
-          floor: "Piano Terra",
-          rooms: 2,
-          bathrooms: 1,
-          size: "65 mq",
-          available: true
-        },
-        {
-          id: "a2",
-          name: "A2 - Piano Primo",
+          id: "a1-p1",
+          name: "Appartamento 1 - Piano Primo",
           floor: "Piano Primo",
           rooms: 3,
           bathrooms: 2,
-          size: "85 mq",
-          available: true
+          size: "79.62 mq",
+          available: true,
+          planimetryQuotata: scalaAApt1Quotata,
+          planimetryArredata: scalaAApt1Arredata
         },
         {
-          id: "a3",
-          name: "A3 - Piano Secondo",
+          id: "a2-p1",
+          name: "Appartamento 2 - Piano Primo",
+          floor: "Piano Primo",
+          rooms: 2,
+          bathrooms: 1,
+          size: "40.78 mq",
+          available: true,
+          planimetryQuotata: scalaAApt2Quotata,
+          planimetryArredata: scalaAApt2Arredata
+        },
+        {
+          id: "a3-p1",
+          name: "Appartamento 3 - Piano Primo",
+          floor: "Piano Primo",
+          rooms: 2,
+          bathrooms: 1,
+          size: "38.33 mq",
+          available: false,
+          planimetryQuotata: scalaAApt3Quotata,
+          planimetryArredata: scalaAApt3Arredata
+        },
+        // Piano Secondo - 3 appartamenti (stesse planimetrie)
+        {
+          id: "a1-p2",
+          name: "Appartamento 1 - Piano Secondo",
           floor: "Piano Secondo",
           rooms: 3,
           bathrooms: 2,
-          size: "90 mq",
-          available: false
+          size: "79.62 mq",
+          available: true,
+          planimetryQuotata: scalaAApt1Quotata,
+          planimetryArredata: scalaAApt1Arredata
         },
         {
-          id: "a4",
-          name: "A4 - Piano Terzo",
+          id: "a2-p2",
+          name: "Appartamento 2 - Piano Secondo",
+          floor: "Piano Secondo",
+          rooms: 2,
+          bathrooms: 1,
+          size: "40.78 mq",
+          available: true,
+          planimetryQuotata: scalaAApt2Quotata,
+          planimetryArredata: scalaAApt2Arredata
+        },
+        {
+          id: "a3-p2",
+          name: "Appartamento 3 - Piano Secondo",
+          floor: "Piano Secondo",
+          rooms: 2,
+          bathrooms: 1,
+          size: "38.33 mq",
+          available: true,
+          planimetryQuotata: scalaAApt3Quotata,
+          planimetryArredata: scalaAApt3Arredata
+        },
+        // Piano Terzo - 3 appartamenti (stesse planimetrie)
+        {
+          id: "a1-p3",
+          name: "Appartamento 1 - Piano Terzo",
           floor: "Piano Terzo",
-          rooms: 4,
+          rooms: 3,
           bathrooms: 2,
-          size: "110 mq",
-          available: true
+          size: "79.62 mq",
+          available: false,
+          planimetryQuotata: scalaAApt1Quotata,
+          planimetryArredata: scalaAApt1Arredata
+        },
+        {
+          id: "a2-p3",
+          name: "Appartamento 2 - Piano Terzo",
+          floor: "Piano Terzo",
+          rooms: 2,
+          bathrooms: 1,
+          size: "40.78 mq",
+          available: true,
+          planimetryQuotata: scalaAApt2Quotata,
+          planimetryArredata: scalaAApt2Arredata
+        },
+        {
+          id: "a3-p3",
+          name: "Appartamento 3 - Piano Terzo",
+          floor: "Piano Terzo",
+          rooms: 2,
+          bathrooms: 1,
+          size: "38.33 mq",
+          available: true,
+          planimetryQuotata: scalaAApt3Quotata,
+          planimetryArredata: scalaAApt3Arredata
+        },
+        // Piano Quarto - 3 appartamenti (stesse planimetrie)
+        {
+          id: "a1-p4",
+          name: "Appartamento 1 - Piano Quarto",
+          floor: "Piano Quarto",
+          rooms: 3,
+          bathrooms: 2,
+          size: "79.62 mq",
+          available: true,
+          planimetryQuotata: scalaAApt1Quotata,
+          planimetryArredata: scalaAApt1Arredata
+        },
+        {
+          id: "a2-p4",
+          name: "Appartamento 2 - Piano Quarto",
+          floor: "Piano Quarto",
+          rooms: 2,
+          bathrooms: 1,
+          size: "40.78 mq",
+          available: true,
+          planimetryQuotata: scalaAApt2Quotata,
+          planimetryArredata: scalaAApt2Arredata
+        },
+        {
+          id: "a3-p4",
+          name: "Appartamento 3 - Piano Quarto",
+          floor: "Piano Quarto",
+          rooms: 2,
+          bathrooms: 1,
+          size: "38.33 mq",
+          available: true,
+          planimetryQuotata: scalaAApt3Quotata,
+          planimetryArredata: scalaAApt3Arredata
         }
       ]
     },
@@ -81,7 +190,7 @@ const BuildingStructure = () => {
           floor: "Piano Terra",
           rooms: 2,
           bathrooms: 1,
-          size: "70 mq",
+          size: "Varie metrature",
           available: true
         },
         {
@@ -90,7 +199,7 @@ const BuildingStructure = () => {
           floor: "Piano Primo",
           rooms: 3,
           bathrooms: 2,
-          size: "95 mq",
+          size: "Varie metrature",
           available: true
         },
         {
@@ -99,7 +208,7 @@ const BuildingStructure = () => {
           floor: "Piano Secondo",
           rooms: 3,
           bathrooms: 2,
-          size: "95 mq",
+          size: "Varie metrature",
           available: true
         },
         {
@@ -108,7 +217,7 @@ const BuildingStructure = () => {
           floor: "Attico",
           rooms: 4,
           bathrooms: 3,
-          size: "130 mq",
+          size: "Varie metrature",
           available: false
         }
       ]
@@ -124,7 +233,7 @@ const BuildingStructure = () => {
           floor: "Piano Terra",
           rooms: 2,
           bathrooms: 1,
-          size: "68 mq",
+          size: "Varie metrature",
           available: true
         },
         {
@@ -133,7 +242,7 @@ const BuildingStructure = () => {
           floor: "Piano Primo",
           rooms: 3,
           bathrooms: 2,
-          size: "88 mq",
+          size: "Varie metrature",
           available: false
         },
         {
@@ -142,7 +251,7 @@ const BuildingStructure = () => {
           floor: "Piano Secondo",
           rooms: 3,
           bathrooms: 2,
-          size: "88 mq",
+          size: "Varie metrature",
           available: true
         },
         {
@@ -151,7 +260,7 @@ const BuildingStructure = () => {
           floor: "Piano Terzo",
           rooms: 4,
           bathrooms: 2,
-          size: "115 mq",
+          size: "Varie metrature",
           available: true
         }
       ]
@@ -167,7 +276,7 @@ const BuildingStructure = () => {
           floor: "Piano Terra",
           rooms: 2,
           bathrooms: 1,
-          size: "72 mq",
+          size: "Varie metrature",
           available: false
         },
         {
@@ -176,7 +285,7 @@ const BuildingStructure = () => {
           floor: "Piano Primo",
           rooms: 3,
           bathrooms: 2,
-          size: "92 mq",
+          size: "Varie metrature",
           available: true
         },
         {
@@ -185,7 +294,7 @@ const BuildingStructure = () => {
           floor: "Piano Secondo",
           rooms: 3,
           bathrooms: 2,
-          size: "92 mq",
+          size: "Varie metrature",
           available: true
         },
         {
@@ -194,7 +303,7 @@ const BuildingStructure = () => {
           floor: "Attico",
           rooms: 4,
           bathrooms: 3,
-          size: "140 mq",
+          size: "Varie metrature",
           available: true
         }
       ]
@@ -304,34 +413,62 @@ const BuildingStructure = () => {
                 ))}
               </div>
 
-              {selectedApartment && (
-                <div className="mt-8 bg-muted/50 rounded-lg p-8 border border-border">
-                  <div className="flex items-center justify-between mb-6">
-                    <h4 className="text-xl font-semibold">
-                      Planimetria {scala.apartments.find(a => a.id === selectedApartment)?.name}
-                    </h4>
-                    <Button 
-                      variant="ghost" 
-                      size="sm"
-                      onClick={() => setSelectedApartment(null)}
-                    >
-                      Chiudi
-                    </Button>
-                  </div>
-                  
-                  <div className="bg-white dark:bg-gray-800 rounded-lg p-8 aspect-video flex items-center justify-center border-2 border-dashed border-border">
-                    <div className="text-center space-y-4">
-                      <Square className="w-16 h-16 text-muted-foreground mx-auto" />
-                      <p className="text-muted-foreground">
-                        Planimetria disponibile su richiesta
-                      </p>
-                      <Button variant="hero" onClick={scrollToContact}>
-                        Richiedi Planimetria Dettagliata
+              {selectedApartment && (() => {
+                const apt = scala.apartments.find(a => a.id === selectedApartment);
+                return apt && (
+                  <div className="mt-8 bg-muted/50 rounded-lg p-8 border border-border">
+                    <div className="flex items-center justify-between mb-6">
+                      <h4 className="text-xl font-semibold">
+                        Planimetrie {apt.name}
+                      </h4>
+                      <Button 
+                        variant="ghost" 
+                        size="sm"
+                        onClick={() => setSelectedApartment(null)}
+                      >
+                        Chiudi
                       </Button>
                     </div>
+                    
+                    {apt.planimetryQuotata && apt.planimetryArredata ? (
+                      <div className="grid md:grid-cols-2 gap-6">
+                        <div className="space-y-3">
+                          <h5 className="font-semibold text-center">Planimetria Quotata</h5>
+                          <div className="bg-white dark:bg-gray-800 rounded-lg p-4 border border-border">
+                            <img 
+                              src={apt.planimetryQuotata} 
+                              alt={`Planimetria quotata ${apt.name}`}
+                              className="w-full h-auto rounded"
+                            />
+                          </div>
+                        </div>
+                        <div className="space-y-3">
+                          <h5 className="font-semibold text-center">Planimetria Arredata</h5>
+                          <div className="bg-white dark:bg-gray-800 rounded-lg p-4 border border-border">
+                            <img 
+                              src={apt.planimetryArredata} 
+                              alt={`Planimetria arredata ${apt.name}`}
+                              className="w-full h-auto rounded"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="bg-white dark:bg-gray-800 rounded-lg p-8 aspect-video flex items-center justify-center border-2 border-dashed border-border">
+                        <div className="text-center space-y-4">
+                          <Square className="w-16 h-16 text-muted-foreground mx-auto" />
+                          <p className="text-muted-foreground">
+                            Planimetria disponibile su richiesta
+                          </p>
+                          <Button variant="hero" onClick={scrollToContact}>
+                            Richiedi Planimetria Dettagliata
+                          </Button>
+                        </div>
+                      </div>
+                    )}
                   </div>
-                </div>
-              )}
+                );
+              })()}
             </TabsContent>
           ))}
         </Tabs>
