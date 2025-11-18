@@ -4,19 +4,19 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { Mail, Phone, MapPin } from "lucide-react";
-
 const ContactForm = () => {
-  const { toast } = useToast();
+  const {
+    toast
+  } = useToast();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
     message: ""
   });
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Basic validation
     if (!formData.name || !formData.email || !formData.phone) {
       toast({
@@ -34,11 +34,14 @@ const ContactForm = () => {
     });
 
     // Reset form
-    setFormData({ name: "", email: "", phone: "", message: "" });
+    setFormData({
+      name: "",
+      email: "",
+      phone: "",
+      message: ""
+    });
   };
-
-  return (
-    <section id="contatti" className="py-24 bg-background">
+  return <section id="contatti" className="py-24 bg-background">
       <div className="container mx-auto px-4">
         <h2 className="text-4xl md:text-5xl font-bold mb-6 text-center">
           Contattaci
@@ -74,7 +77,7 @@ const ContactForm = () => {
                 </div>
                 <div>
                   <h4 className="font-semibold mb-1">Email</h4>
-                  <p className="text-muted-foreground">info@borgosannicola.it</p>
+                  <p className="text-muted-foreground">info@2dsviluppoimmobiliare.it</p>
                 </div>
               </div>
 
@@ -84,7 +87,8 @@ const ContactForm = () => {
                 </div>
                 <div>
                   <h4 className="font-semibold mb-1">Sede</h4>
-                  <p className="text-muted-foreground">Via delle Residenze, 1<br />20100 Milano (MI)</p>
+                  <p className="text-muted-foreground">Via Domenico Di Venere, 37
+Ceglie del Campo (Ba)<br />20100 Milano (MI)</p>
                 </div>
               </div>
             </div>
@@ -106,56 +110,40 @@ const ContactForm = () => {
                 <label htmlFor="name" className="block text-sm font-medium mb-2">
                   Nome e Cognome *
                 </label>
-                <Input
-                  id="name"
-                  type="text"
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  required
-                  className="w-full"
-                />
+                <Input id="name" type="text" value={formData.name} onChange={e => setFormData({
+                ...formData,
+                name: e.target.value
+              })} required className="w-full" />
               </div>
 
               <div>
                 <label htmlFor="email" className="block text-sm font-medium mb-2">
                   Email *
                 </label>
-                <Input
-                  id="email"
-                  type="email"
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  required
-                  className="w-full"
-                />
+                <Input id="email" type="email" value={formData.email} onChange={e => setFormData({
+                ...formData,
+                email: e.target.value
+              })} required className="w-full" />
               </div>
 
               <div>
                 <label htmlFor="phone" className="block text-sm font-medium mb-2">
                   Telefono *
                 </label>
-                <Input
-                  id="phone"
-                  type="tel"
-                  value={formData.phone}
-                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  required
-                  className="w-full"
-                />
+                <Input id="phone" type="tel" value={formData.phone} onChange={e => setFormData({
+                ...formData,
+                phone: e.target.value
+              })} required className="w-full" />
               </div>
 
               <div>
                 <label htmlFor="message" className="block text-sm font-medium mb-2">
                   Messaggio
                 </label>
-                <Textarea
-                  id="message"
-                  value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  rows={4}
-                  className="w-full resize-none"
-                  placeholder="Scrivi qui eventuali richieste particolari..."
-                />
+                <Textarea id="message" value={formData.message} onChange={e => setFormData({
+                ...formData,
+                message: e.target.value
+              })} rows={4} className="w-full resize-none" placeholder="Scrivi qui eventuali richieste particolari..." />
               </div>
 
               <Button type="submit" size="lg" variant="hero" className="w-full">
@@ -169,8 +157,6 @@ const ContactForm = () => {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default ContactForm;
