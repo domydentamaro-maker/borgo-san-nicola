@@ -34,9 +34,13 @@ const Footer = () => {
           <div>
             <h4 className="font-semibold mb-4">Contatti</h4>
             <ul className="space-y-2 text-primary-foreground/80">
-              <li>Via delle Residenze, 1</li>
-              <li>20100 Milano (MI)</li>
-              <li>Tel: +39 02 1234 5678</li>
+              <li>Via Domenico Di Venere 41</li>
+              <li>Ceglie del Campo - Bari</li>
+              <li>
+                <a href="tel:+393408039322" className="hover:text-accent transition-colors">
+                  Tel: 340 803 9322
+                </a>
+              </li>
               <li>info@borgosannicola.it</li>
             </ul>
           </div>
