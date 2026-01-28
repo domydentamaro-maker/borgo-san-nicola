@@ -67,7 +67,9 @@ const ContactForm = () => {
                 </div>
                 <div>
                   <h4 className="font-semibold mb-1">Telefono</h4>
-                  <p className="text-muted-foreground">+39 02 1234 5678</p>
+                  <a href="tel:+393408039322" className="text-muted-foreground hover:text-accent transition-colors">
+                    340 803 9322
+                  </a>
                 </div>
               </div>
 
@@ -87,8 +89,7 @@ const ContactForm = () => {
                 </div>
                 <div>
                   <h4 className="font-semibold mb-1">Sede</h4>
-                  <p className="text-muted-foreground">Via Domenico Di Venere, 37
-Ceglie del Campo (Ba)<br />20100 Milano (MI)</p>
+                  <p className="text-muted-foreground">Via Domenico Di Venere 41<br />Ceglie del Campo - Bari</p>
                 </div>
               </div>
             </div>
