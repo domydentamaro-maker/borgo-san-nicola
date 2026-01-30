@@ -18,6 +18,16 @@ import scalaAApt2Arredata from "@/assets/planimetrie/scala-a-apt2-arredata.jpg";
 import scalaAApt3Quotata from "@/assets/planimetrie/scala-a-apt3-quotata.jpg";
 import scalaAApt3Arredata from "@/assets/planimetrie/scala-a-apt3-arredata.jpg";
 
+// Planimetrie Scala C
+import scalaCApt1Quotata from "@/assets/planimetrie/scala-c-apt1-quotata.jpg";
+import scalaCApt1Arredata from "@/assets/planimetrie/scala-c-apt1-arredata.jpg";
+import scalaCApt2Quotata from "@/assets/planimetrie/scala-c-apt2-quotata.jpg";
+import scalaCApt2Arredata from "@/assets/planimetrie/scala-c-apt2-arredata.jpg";
+import scalaCApt3Quotata from "@/assets/planimetrie/scala-c-apt3-quotata.jpg";
+import scalaCApt3Arredata from "@/assets/planimetrie/scala-c-apt3-arredata.jpg";
+import scalaCApt4Quotata from "@/assets/planimetrie/scala-c-apt4-quotata.jpg";
+import scalaCApt4Arredata from "@/assets/planimetrie/scala-c-apt4-arredata.jpg";
+
 interface Apartment {
   id: string;
   name: string;
@@ -193,16 +203,7 @@ const BuildingStructure = () => {
       apartments: [
         {
           id: "b1",
-          name: "B1 - Piano Terra",
-          floor: "Piano Terra",
-          rooms: 2,
-          bathrooms: 1,
-          size: "Varie metrature",
-          available: true
-        },
-        {
-          id: "b2",
-          name: "B2 - Piano Primo",
+          name: "B1 - Piano Primo",
           floor: "Piano Primo",
           rooms: 3,
           bathrooms: 2,
@@ -210,8 +211,8 @@ const BuildingStructure = () => {
           available: true
         },
         {
-          id: "b3",
-          name: "B3 - Piano Secondo",
+          id: "b2",
+          name: "B2 - Piano Secondo",
           floor: "Piano Secondo",
           rooms: 3,
           bathrooms: 2,
@@ -219,9 +220,18 @@ const BuildingStructure = () => {
           available: true
         },
         {
+          id: "b3",
+          name: "B3 - Piano Terzo",
+          floor: "Piano Terzo",
+          rooms: 3,
+          bathrooms: 2,
+          size: "Varie metrature",
+          available: true
+        },
+        {
           id: "b4",
-          name: "B4 - Attico",
-          floor: "Attico",
+          name: "B4 - Piano Quarto",
+          floor: "Piano Quarto",
           rooms: 4,
           bathrooms: 3,
           size: "Varie metrature",
@@ -232,43 +242,187 @@ const BuildingStructure = () => {
     {
       id: "scala-c",
       name: "Scala C",
-      description: "Vista panoramica sul verde condominiale",
+      description: "Vista panoramica sul verde condominiale - 4 appartamenti per piano",
       apartments: [
+        // Piano Primo - 4 appartamenti
         {
-          id: "c1",
-          name: "C1 - Piano Terra",
-          floor: "Piano Terra",
+          id: "c1-p1",
+          name: "Appartamento 1 - Piano Primo",
+          floor: "Piano Primo",
           rooms: 2,
           bathrooms: 1,
-          size: "Varie metrature",
-          available: true
+          size: "45.45 mq",
+          available: true,
+          planimetryQuotata: scalaCApt1Quotata,
+          planimetryArredata: scalaCApt1Arredata
         },
         {
-          id: "c2",
-          name: "C2 - Piano Primo",
+          id: "c2-p1",
+          name: "Appartamento 2 - Piano Primo",
           floor: "Piano Primo",
           rooms: 3,
           bathrooms: 2,
-          size: "Varie metrature",
-          available: false
+          size: "63.56 mq",
+          available: true,
+          planimetryQuotata: scalaCApt2Quotata,
+          planimetryArredata: scalaCApt2Arredata
         },
         {
-          id: "c3",
-          name: "C3 - Piano Secondo",
+          id: "c3-p1",
+          name: "Appartamento 3 - Piano Primo",
+          floor: "Piano Primo",
+          rooms: 3,
+          bathrooms: 1,
+          size: "58.65 mq",
+          available: false,
+          planimetryQuotata: scalaCApt3Quotata,
+          planimetryArredata: scalaCApt3Arredata
+        },
+        {
+          id: "c4-p1",
+          name: "Appartamento 4 - Piano Primo",
+          floor: "Piano Primo",
+          rooms: 4,
+          bathrooms: 2,
+          size: "80.67 mq",
+          available: true,
+          planimetryQuotata: scalaCApt4Quotata,
+          planimetryArredata: scalaCApt4Arredata
+        },
+        // Piano Secondo - 4 appartamenti (stesse planimetrie)
+        {
+          id: "c1-p2",
+          name: "Appartamento 1 - Piano Secondo",
+          floor: "Piano Secondo",
+          rooms: 2,
+          bathrooms: 1,
+          size: "45.45 mq",
+          available: true,
+          planimetryQuotata: scalaCApt1Quotata,
+          planimetryArredata: scalaCApt1Arredata
+        },
+        {
+          id: "c2-p2",
+          name: "Appartamento 2 - Piano Secondo",
           floor: "Piano Secondo",
           rooms: 3,
           bathrooms: 2,
-          size: "Varie metrature",
-          available: true
+          size: "63.56 mq",
+          available: true,
+          planimetryQuotata: scalaCApt2Quotata,
+          planimetryArredata: scalaCApt2Arredata
         },
         {
-          id: "c4",
-          name: "C4 - Piano Terzo",
+          id: "c3-p2",
+          name: "Appartamento 3 - Piano Secondo",
+          floor: "Piano Secondo",
+          rooms: 3,
+          bathrooms: 1,
+          size: "58.65 mq",
+          available: true,
+          planimetryQuotata: scalaCApt3Quotata,
+          planimetryArredata: scalaCApt3Arredata
+        },
+        {
+          id: "c4-p2",
+          name: "Appartamento 4 - Piano Secondo",
+          floor: "Piano Secondo",
+          rooms: 4,
+          bathrooms: 2,
+          size: "80.67 mq",
+          available: true,
+          planimetryQuotata: scalaCApt4Quotata,
+          planimetryArredata: scalaCApt4Arredata
+        },
+        // Piano Terzo - 4 appartamenti (stesse planimetrie)
+        {
+          id: "c1-p3",
+          name: "Appartamento 1 - Piano Terzo",
+          floor: "Piano Terzo",
+          rooms: 2,
+          bathrooms: 1,
+          size: "45.45 mq",
+          available: true,
+          planimetryQuotata: scalaCApt1Quotata,
+          planimetryArredata: scalaCApt1Arredata
+        },
+        {
+          id: "c2-p3",
+          name: "Appartamento 2 - Piano Terzo",
+          floor: "Piano Terzo",
+          rooms: 3,
+          bathrooms: 2,
+          size: "63.56 mq",
+          available: false,
+          planimetryQuotata: scalaCApt2Quotata,
+          planimetryArredata: scalaCApt2Arredata
+        },
+        {
+          id: "c3-p3",
+          name: "Appartamento 3 - Piano Terzo",
+          floor: "Piano Terzo",
+          rooms: 3,
+          bathrooms: 1,
+          size: "58.65 mq",
+          available: true,
+          planimetryQuotata: scalaCApt3Quotata,
+          planimetryArredata: scalaCApt3Arredata
+        },
+        {
+          id: "c4-p3",
+          name: "Appartamento 4 - Piano Terzo",
           floor: "Piano Terzo",
           rooms: 4,
           bathrooms: 2,
-          size: "Varie metrature",
-          available: true
+          size: "80.67 mq",
+          available: true,
+          planimetryQuotata: scalaCApt4Quotata,
+          planimetryArredata: scalaCApt4Arredata
+        },
+        // Piano Quarto - 4 appartamenti (stesse planimetrie)
+        {
+          id: "c1-p4",
+          name: "Appartamento 1 - Piano Quarto",
+          floor: "Piano Quarto",
+          rooms: 2,
+          bathrooms: 1,
+          size: "45.45 mq",
+          available: true,
+          planimetryQuotata: scalaCApt1Quotata,
+          planimetryArredata: scalaCApt1Arredata
+        },
+        {
+          id: "c2-p4",
+          name: "Appartamento 2 - Piano Quarto",
+          floor: "Piano Quarto",
+          rooms: 3,
+          bathrooms: 2,
+          size: "63.56 mq",
+          available: true,
+          planimetryQuotata: scalaCApt2Quotata,
+          planimetryArredata: scalaCApt2Arredata
+        },
+        {
+          id: "c3-p4",
+          name: "Appartamento 3 - Piano Quarto",
+          floor: "Piano Quarto",
+          rooms: 3,
+          bathrooms: 1,
+          size: "58.65 mq",
+          available: true,
+          planimetryQuotata: scalaCApt3Quotata,
+          planimetryArredata: scalaCApt3Arredata
+        },
+        {
+          id: "c4-p4",
+          name: "Appartamento 4 - Piano Quarto",
+          floor: "Piano Quarto",
+          rooms: 4,
+          bathrooms: 2,
+          size: "80.67 mq",
+          available: true,
+          planimetryQuotata: scalaCApt4Quotata,
+          planimetryArredata: scalaCApt4Arredata
         }
       ]
     },
@@ -279,16 +433,7 @@ const BuildingStructure = () => {
       apartments: [
         {
           id: "d1",
-          name: "D1 - Piano Terra",
-          floor: "Piano Terra",
-          rooms: 2,
-          bathrooms: 1,
-          size: "Varie metrature",
-          available: false
-        },
-        {
-          id: "d2",
-          name: "D2 - Piano Primo",
+          name: "D1 - Piano Primo",
           floor: "Piano Primo",
           rooms: 3,
           bathrooms: 2,
@@ -296,8 +441,8 @@ const BuildingStructure = () => {
           available: true
         },
         {
-          id: "d3",
-          name: "D3 - Piano Secondo",
+          id: "d2",
+          name: "D2 - Piano Secondo",
           floor: "Piano Secondo",
           rooms: 3,
           bathrooms: 2,
@@ -305,9 +450,18 @@ const BuildingStructure = () => {
           available: true
         },
         {
+          id: "d3",
+          name: "D3 - Piano Terzo",
+          floor: "Piano Terzo",
+          rooms: 3,
+          bathrooms: 2,
+          size: "Varie metrature",
+          available: true
+        },
+        {
           id: "d4",
-          name: "D4 - Attico",
-          floor: "Attico",
+          name: "D4 - Piano Quarto",
+          floor: "Piano Quarto",
           rooms: 4,
           bathrooms: 3,
           size: "Varie metrature",
