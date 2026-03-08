@@ -66,68 +66,152 @@ interface Scale {
 const ZoomableImage = ({ src, alt, label }: { src: string; alt: string; label: string }) => {
   const [scale, setScale] = useState(1);
   const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [isDragging, setIsDragging] = useState(false);
-  const dragStart = useRef({ x: 0, y: 0 });
-  const posStart = useRef({ x: 0, y: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
+  const stateRef = useRef({ 
+    isDragging: false, 
+    lastDistance: 0, 
+    lastCenter: { x: 0, y: 0 },
+    startPos: { x: 0, y: 0 },
+    startTranslate: { x: 0, y: 0 },
+    scale: 1,
+    position: { x: 0, y: 0 }
+  });
 
+  // Keep ref in sync
+  stateRef.current.scale = scale;
+  stateRef.current.position = position;
+
+  const getDistance = (touches: TouchList) => {
+    const dx = touches[0].clientX - touches[1].clientX;
+    const dy = touches[0].clientY - touches[1].clientY;
+    return Math.sqrt(dx * dx + dy * dy);
+  };
+
+  const getCenter = (touches: TouchList) => ({
+    x: (touches[0].clientX + touches[1].clientX) / 2,
+    y: (touches[0].clientY + touches[1].clientY) / 2,
+  });
+
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    if (e.touches.length === 2) {
+      e.preventDefault();
+      stateRef.current.lastDistance = getDistance(e.touches);
+      stateRef.current.lastCenter = getCenter(e.touches);
+    } else if (e.touches.length === 1 && stateRef.current.scale > 1) {
+      stateRef.current.isDragging = true;
+      stateRef.current.startPos = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+      stateRef.current.startTranslate = { ...stateRef.current.position };
+    }
+  }, []);
+
+  const handleTouchMove = useCallback((e: React.TouchEvent) => {
+    if (e.touches.length === 2) {
+      e.preventDefault();
+      const newDistance = getDistance(e.touches);
+      const ratio = newDistance / stateRef.current.lastDistance;
+      const newScale = Math.min(Math.max(stateRef.current.scale * ratio, 1), 5);
+      stateRef.current.lastDistance = newDistance;
+      setScale(newScale);
+      if (newScale <= 1) setPosition({ x: 0, y: 0 });
+    } else if (e.touches.length === 1 && stateRef.current.isDragging) {
+      const dx = e.touches[0].clientX - stateRef.current.startPos.x;
+      const dy = e.touches[0].clientY - stateRef.current.startPos.y;
+      setPosition({
+        x: stateRef.current.startTranslate.x + dx,
+        y: stateRef.current.startTranslate.y + dy,
+      });
+    }
+  }, []);
+
+  const handleTouchEnd = useCallback(() => {
+    stateRef.current.isDragging = false;
+    stateRef.current.lastDistance = 0;
+  }, []);
+
+  // Mouse wheel zoom for desktop
   const handleWheel = useCallback((e: React.WheelEvent) => {
     e.preventDefault();
     const delta = e.deltaY > 0 ? -0.2 : 0.2;
-    setScale(prev => Math.min(Math.max(prev + delta, 1), 5));
+    setScale(prev => {
+      const newScale = Math.min(Math.max(prev + delta, 1), 5);
+      if (newScale <= 1) setPosition({ x: 0, y: 0 });
+      return newScale;
+    });
   }, []);
 
-  const handlePointerDown = useCallback((e: React.PointerEvent) => {
-    if (scale <= 1) return;
-    setIsDragging(true);
-    dragStart.current = { x: e.clientX, y: e.clientY };
-    posStart.current = { ...position };
-    (e.target as HTMLElement).setPointerCapture(e.pointerId);
-  }, [scale, position]);
+  // Mouse drag for desktop
+  const handleMouseDown = useCallback((e: React.MouseEvent) => {
+    if (stateRef.current.scale <= 1) return;
+    stateRef.current.isDragging = true;
+    stateRef.current.startPos = { x: e.clientX, y: e.clientY };
+    stateRef.current.startTranslate = { ...stateRef.current.position };
+  }, []);
 
-  const handlePointerMove = useCallback((e: React.PointerEvent) => {
-    if (!isDragging) return;
+  const handleMouseMove = useCallback((e: React.MouseEvent) => {
+    if (!stateRef.current.isDragging) return;
     setPosition({
-      x: posStart.current.x + (e.clientX - dragStart.current.x),
-      y: posStart.current.y + (e.clientY - dragStart.current.y),
+      x: stateRef.current.startTranslate.x + (e.clientX - stateRef.current.startPos.x),
+      y: stateRef.current.startTranslate.y + (e.clientY - stateRef.current.startPos.y),
     });
-  }, [isDragging]);
+  }, []);
 
-  const handlePointerUp = useCallback(() => setIsDragging(false), []);
+  const handleMouseUp = useCallback(() => {
+    stateRef.current.isDragging = false;
+  }, []);
 
   const reset = useCallback(() => {
     setScale(1);
     setPosition({ x: 0, y: 0 });
   }, []);
 
+  // Double tap to zoom
+  const lastTap = useRef(0);
+  const handleDoubleTap = useCallback((e: React.TouchEvent) => {
+    const now = Date.now();
+    if (now - lastTap.current < 300) {
+      e.preventDefault();
+      if (stateRef.current.scale > 1) {
+        reset();
+      } else {
+        setScale(2.5);
+      }
+    }
+    lastTap.current = now;
+  }, [reset]);
+
   return (
     <div className="space-y-3">
       <h5 className="font-semibold text-center text-lg">{label}</h5>
       <div className="relative rounded-lg border border-border overflow-hidden bg-card">
-        <div className="absolute top-2 right-2 z-10 flex gap-1">
-          <Button variant="outline" size="icon" className="h-8 w-8 bg-background/80 backdrop-blur-sm" onClick={() => setScale(s => Math.min(s + 0.5, 5))}>
-            <ZoomIn className="w-4 h-4" />
-          </Button>
-          <Button variant="outline" size="icon" className="h-8 w-8 bg-background/80 backdrop-blur-sm" onClick={() => setScale(s => Math.max(s - 0.5, 1))}>
-            <ZoomOut className="w-4 h-4" />
-          </Button>
-          <Button variant="outline" size="icon" className="h-8 w-8 bg-background/80 backdrop-blur-sm" onClick={reset}>
+        {scale > 1 && (
+          <button
+            onClick={reset}
+            className="absolute top-2 right-2 z-10 h-8 w-8 flex items-center justify-center rounded-md border border-border bg-background/80 backdrop-blur-sm text-muted-foreground hover:text-foreground"
+          >
             <RotateCcw className="w-4 h-4" />
-          </Button>
-        </div>
+          </button>
+        )}
         <div
           ref={containerRef}
-          className="p-4 cursor-grab active:cursor-grabbing overflow-hidden"
+          className="p-4 overflow-hidden touch-none"
+          style={{ cursor: scale > 1 ? 'grab' : 'default' }}
           onWheel={handleWheel}
-          onPointerDown={handlePointerDown}
-          onPointerMove={handlePointerMove}
-          onPointerUp={handlePointerUp}
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUp}
+          onMouseLeave={handleMouseUp}
+          onTouchStart={(e) => { handleDoubleTap(e); handleTouchStart(e); }}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
         >
           <img
             src={src}
             alt={alt}
-            className="w-full h-auto rounded select-none transition-transform duration-150"
-            style={{ transform: `scale(${scale}) translate(${position.x / scale}px, ${position.y / scale}px)` }}
+            className="w-full h-auto rounded select-none"
+            style={{ 
+              transform: `scale(${scale}) translate(${position.x / scale}px, ${position.y / scale}px)`,
+              transition: stateRef.current.isDragging ? 'none' : 'transform 0.15s ease-out',
+            }}
             draggable={false}
           />
         </div>
