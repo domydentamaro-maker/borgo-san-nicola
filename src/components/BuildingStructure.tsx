@@ -746,15 +746,6 @@ const BuildingStructure = () => {
                       <div className="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center">
                         <Square className="w-6 h-6 text-accent" />
                       </div>
-                      {apt.available ? (
-                        <span className="px-3 py-1 bg-green-500/10 text-green-600 dark:text-green-400 text-xs font-semibold rounded-full">
-                          Disponibile
-                        </span>
-                      ) : (
-                        <span className="px-3 py-1 bg-muted text-muted-foreground text-xs font-semibold rounded-full">
-                          Venduto
-                        </span>
-                      )}
                     </div>
 
                     <h4 className="font-semibold text-lg mb-2">{apt.name}</h4>
