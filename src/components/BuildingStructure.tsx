@@ -801,26 +801,16 @@ const BuildingStructure = () => {
             
             {selectedApartment?.planimetryQuotata && selectedApartment?.planimetryArredata ? (
               <div className="grid md:grid-cols-2 gap-6 mt-4">
-                <div className="space-y-3">
-                  <h5 className="font-semibold text-center text-lg">Planimetria Quotata</h5>
-                  <div className="bg-white dark:bg-gray-800 rounded-lg p-4 border border-border">
-                    <img 
-                      src={selectedApartment.planimetryQuotata} 
-                      alt={`Planimetria quotata ${selectedApartment.name}`}
-                      className="w-full h-auto rounded"
-                    />
-                  </div>
-                </div>
-                <div className="space-y-3">
-                  <h5 className="font-semibold text-center text-lg">Planimetria Arredata</h5>
-                  <div className="bg-white dark:bg-gray-800 rounded-lg p-4 border border-border">
-                    <img 
-                      src={selectedApartment.planimetryArredata} 
-                      alt={`Planimetria arredata ${selectedApartment.name}`}
-                      className="w-full h-auto rounded"
-                    />
-                  </div>
-                </div>
+                <ZoomableImage
+                  src={selectedApartment.planimetryQuotata}
+                  alt={`Planimetria quotata ${selectedApartment.name}`}
+                  label="Planimetria Quotata"
+                />
+                <ZoomableImage
+                  src={selectedApartment.planimetryArredata}
+                  alt={`Planimetria arredata ${selectedApartment.name}`}
+                  label="Planimetria Arredata"
+                />
               </div>
             ) : (
               <div className="bg-white dark:bg-gray-800 rounded-lg p-8 aspect-video flex items-center justify-center border-2 border-dashed border-border">
