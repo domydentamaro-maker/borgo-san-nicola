@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useRef, useCallback } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card } from "@/components/ui/card";
-import { Home, Square, Bed, Bath, Maximize2, Eye } from "lucide-react";
+import { Home, Square, Bed, Bath, Maximize2, Eye, ZoomIn, ZoomOut, RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -63,6 +63,83 @@ interface Scale {
   description: string;
   apartments: Apartment[];
 }
+const ZoomableImage = ({ src, alt, label }: { src: string; alt: string; label: string }) => {
+  const [scale, setScale] = useState(1);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [isDragging, setIsDragging] = useState(false);
+  const dragStart = useRef({ x: 0, y: 0 });
+  const posStart = useRef({ x: 0, y: 0 });
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const handleWheel = useCallback((e: React.WheelEvent) => {
+    e.preventDefault();
+    const delta = e.deltaY > 0 ? -0.2 : 0.2;
+    setScale(prev => Math.min(Math.max(prev + delta, 1), 5));
+  }, []);
+
+  const handlePointerDown = useCallback((e: React.PointerEvent) => {
+    if (scale <= 1) return;
+    setIsDragging(true);
+    dragStart.current = { x: e.clientX, y: e.clientY };
+    posStart.current = { ...position };
+    (e.target as HTMLElement).setPointerCapture(e.pointerId);
+  }, [scale, position]);
+
+  const handlePointerMove = useCallback((e: React.PointerEvent) => {
+    if (!isDragging) return;
+    setPosition({
+      x: posStart.current.x + (e.clientX - dragStart.current.x),
+      y: posStart.current.y + (e.clientY - dragStart.current.y),
+    });
+  }, [isDragging]);
+
+  const handlePointerUp = useCallback(() => setIsDragging(false), []);
+
+  const reset = useCallback(() => {
+    setScale(1);
+    setPosition({ x: 0, y: 0 });
+  }, []);
+
+  return (
+    <div className="space-y-3">
+      <h5 className="font-semibold text-center text-lg">{label}</h5>
+      <div className="relative rounded-lg border border-border overflow-hidden bg-card">
+        <div className="absolute top-2 right-2 z-10 flex gap-1">
+          <Button variant="outline" size="icon" className="h-8 w-8 bg-background/80 backdrop-blur-sm" onClick={() => setScale(s => Math.min(s + 0.5, 5))}>
+            <ZoomIn className="w-4 h-4" />
+          </Button>
+          <Button variant="outline" size="icon" className="h-8 w-8 bg-background/80 backdrop-blur-sm" onClick={() => setScale(s => Math.max(s - 0.5, 1))}>
+            <ZoomOut className="w-4 h-4" />
+          </Button>
+          <Button variant="outline" size="icon" className="h-8 w-8 bg-background/80 backdrop-blur-sm" onClick={reset}>
+            <RotateCcw className="w-4 h-4" />
+          </Button>
+        </div>
+        <div
+          ref={containerRef}
+          className="p-4 cursor-grab active:cursor-grabbing overflow-hidden"
+          onWheel={handleWheel}
+          onPointerDown={handlePointerDown}
+          onPointerMove={handlePointerMove}
+          onPointerUp={handlePointerUp}
+        >
+          <img
+            src={src}
+            alt={alt}
+            className="w-full h-auto rounded select-none transition-transform duration-150"
+            style={{ transform: `scale(${scale}) translate(${position.x / scale}px, ${position.y / scale}px)` }}
+            draggable={false}
+          />
+        </div>
+        {scale > 1 && (
+          <div className="absolute bottom-2 left-2 text-xs bg-background/80 backdrop-blur-sm px-2 py-1 rounded text-muted-foreground">
+            {Math.round(scale * 100)}%
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
 
 const BuildingStructure = () => {
   const [selectedApartment, setSelectedApartment] = useState<Apartment | null>(null);
@@ -801,26 +878,16 @@ const BuildingStructure = () => {
             
             {selectedApartment?.planimetryQuotata && selectedApartment?.planimetryArredata ? (
               <div className="grid md:grid-cols-2 gap-6 mt-4">
-                <div className="space-y-3">
-                  <h5 className="font-semibold text-center text-lg">Planimetria Quotata</h5>
-                  <div className="bg-white dark:bg-gray-800 rounded-lg p-4 border border-border">
-                    <img 
-                      src={selectedApartment.planimetryQuotata} 
-                      alt={`Planimetria quotata ${selectedApartment.name}`}
-                      className="w-full h-auto rounded"
-                    />
-                  </div>
-                </div>
-                <div className="space-y-3">
-                  <h5 className="font-semibold text-center text-lg">Planimetria Arredata</h5>
-                  <div className="bg-white dark:bg-gray-800 rounded-lg p-4 border border-border">
-                    <img 
-                      src={selectedApartment.planimetryArredata} 
-                      alt={`Planimetria arredata ${selectedApartment.name}`}
-                      className="w-full h-auto rounded"
-                    />
-                  </div>
-                </div>
+                <ZoomableImage
+                  src={selectedApartment.planimetryQuotata}
+                  alt={`Planimetria quotata ${selectedApartment.name}`}
+                  label="Planimetria Quotata"
+                />
+                <ZoomableImage
+                  src={selectedApartment.planimetryArredata}
+                  alt={`Planimetria arredata ${selectedApartment.name}`}
+                  label="Planimetria Arredata"
+                />
               </div>
             ) : (
               <div className="bg-white dark:bg-gray-800 rounded-lg p-8 aspect-video flex items-center justify-center border-2 border-dashed border-border">
