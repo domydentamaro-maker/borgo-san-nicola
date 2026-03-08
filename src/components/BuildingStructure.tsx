@@ -141,7 +141,7 @@ const ZoomableImage = ({ src, alt, label }: { src: string; alt: string; label: s
   );
 };
 
-
+const BuildingStructure = () => {
   const [selectedApartment, setSelectedApartment] = useState<Apartment | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
