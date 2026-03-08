@@ -736,11 +736,7 @@ const BuildingStructure = () => {
                 {scala.apartments.map((apt) => (
                   <Card
                     key={apt.id}
-                    className={`p-6 transition-all duration-300 border-2 ${
-                      apt.available 
-                        ? 'border-border hover:border-accent/50 hover:shadow-elegant' 
-                        : 'border-border opacity-60'
-                    }`}
+                    className="p-6 transition-all duration-300 border-2 border-border hover:border-accent/50 hover:shadow-elegant"
                   >
                     <div className="flex items-center justify-between mb-4">
                       <div className="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center">
