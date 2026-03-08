@@ -736,25 +736,12 @@ const BuildingStructure = () => {
                 {scala.apartments.map((apt) => (
                   <Card
                     key={apt.id}
-                    className={`p-6 transition-all duration-300 border-2 ${
-                      apt.available 
-                        ? 'border-border hover:border-accent/50 hover:shadow-elegant' 
-                        : 'border-border opacity-60'
-                    }`}
+                    className="p-6 transition-all duration-300 border-2 border-border hover:border-accent/50 hover:shadow-elegant"
                   >
                     <div className="flex items-center justify-between mb-4">
                       <div className="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center">
                         <Square className="w-6 h-6 text-accent" />
                       </div>
-                      {apt.available ? (
-                        <span className="px-3 py-1 bg-green-500/10 text-green-600 dark:text-green-400 text-xs font-semibold rounded-full">
-                          Disponibile
-                        </span>
-                      ) : (
-                        <span className="px-3 py-1 bg-muted text-muted-foreground text-xs font-semibold rounded-full">
-                          Venduto
-                        </span>
-                      )}
                     </div>
 
                     <h4 className="font-semibold text-lg mb-2">{apt.name}</h4>
@@ -787,8 +774,7 @@ const BuildingStructure = () => {
                           Visualizza Planimetria
                         </Button>
                       )}
-                      {apt.available && (
-                        <Button 
+                      <Button 
                           variant="outline" 
                           size="sm" 
                           className="w-full"
@@ -796,7 +782,6 @@ const BuildingStructure = () => {
                         >
                           Richiedi Info
                         </Button>
-                      )}
                     </div>
                   </Card>
                 ))}
