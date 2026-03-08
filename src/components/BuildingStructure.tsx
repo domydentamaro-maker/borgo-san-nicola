@@ -774,8 +774,7 @@ const BuildingStructure = () => {
                           Visualizza Planimetria
                         </Button>
                       )}
-                      {apt.available && (
-                        <Button 
+                      <Button 
                           variant="outline" 
                           size="sm" 
                           className="w-full"
@@ -783,7 +782,6 @@ const BuildingStructure = () => {
                         >
                           Richiedi Info
                         </Button>
-                      )}
                     </div>
                   </Card>
                 ))}
