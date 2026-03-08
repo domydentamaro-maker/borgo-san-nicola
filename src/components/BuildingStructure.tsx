@@ -107,7 +107,7 @@ const ZoomableImage = ({ src, alt, label }: { src: string; alt: string; label: s
   const handleTouchMove = useCallback((e: React.TouchEvent) => {
     if (e.touches.length === 2) {
       e.preventDefault();
-      const newDistance = getDistance(e.touches);
+      const newDistance = getDistance(e.touches[0], e.touches[1]);
       const ratio = newDistance / stateRef.current.lastDistance;
       const newScale = Math.min(Math.max(stateRef.current.scale * ratio, 1), 5);
       stateRef.current.lastDistance = newDistance;
