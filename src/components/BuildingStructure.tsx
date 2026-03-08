@@ -81,15 +81,15 @@ const ZoomableImage = ({ src, alt, label }: { src: string; alt: string; label: s
   stateRef.current.scale = scale;
   stateRef.current.position = position;
 
-  const getDistance = (touches: TouchList) => {
-    const dx = touches[0].clientX - touches[1].clientX;
-    const dy = touches[0].clientY - touches[1].clientY;
+  const getDistance = (t0: React.Touch, t1: React.Touch) => {
+    const dx = t0.clientX - t1.clientX;
+    const dy = t0.clientY - t1.clientY;
     return Math.sqrt(dx * dx + dy * dy);
   };
 
-  const getCenter = (touches: TouchList) => ({
-    x: (touches[0].clientX + touches[1].clientX) / 2,
-    y: (touches[0].clientY + touches[1].clientY) / 2,
+  const getCenter = (t0: React.Touch, t1: React.Touch) => ({
+    x: (t0.clientX + t1.clientX) / 2,
+    y: (t0.clientY + t1.clientY) / 2,
   });
 
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
