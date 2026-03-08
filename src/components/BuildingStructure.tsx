@@ -95,8 +95,8 @@ const ZoomableImage = ({ src, alt, label }: { src: string; alt: string; label: s
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
     if (e.touches.length === 2) {
       e.preventDefault();
-      stateRef.current.lastDistance = getDistance(e.touches);
-      stateRef.current.lastCenter = getCenter(e.touches);
+      stateRef.current.lastDistance = getDistance(e.touches[0], e.touches[1]);
+      stateRef.current.lastCenter = getCenter(e.touches[0], e.touches[1]);
     } else if (e.touches.length === 1 && stateRef.current.scale > 1) {
       stateRef.current.isDragging = true;
       stateRef.current.startPos = { x: e.touches[0].clientX, y: e.touches[0].clientY };
